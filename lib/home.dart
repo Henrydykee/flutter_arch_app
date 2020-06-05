@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterarchapp/Status.dart';
 import 'package:flutterarchapp/view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -8,13 +9,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  RickyMorty _rickyMorty;
+  RickyMorty _viewModel;
   @override
   void initState() {
     super.initState();
-    _rickyMorty = Provider.of<RickyMorty>(context, listen: false);
+    _viewModel = Provider.of<RickyMorty>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_){
-      _rickyMorty.getRickCharacters();
+      _viewModel.getRickCharacters();
     });
   }
   @override
@@ -22,11 +23,36 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Rick and Morty",style: TextStyle(
+        title: Text("Rick and Morty Api",style: TextStyle(
           color: Colors.white
         ),),
         backgroundColor: Colors.red,
       ),
+      body: Consumer<RickyMorty>(
+        builder: (context,viewModel, child){
+          if(_viewModel.getStatus() == Status.LOADING){
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          else return ListView.builder(itemBuilder: (context, index){
+            return Padding(
+              padding: const EdgeInsets.only(left: 25,right: 25,top: 10),
+              child: Container(
+                height:  25,
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(_viewModel.getCharacter().results[index].name)),
+            );
+          });
+//          if (_viewModel.getStatus() == Status.SUCCESSFUL){
+//            return Center(
+//              child: Text(
+//                "SUCCESSFUL"
+//              ),
+//            );
+//          }
+        },
+      )
     );
   }
 }
