@@ -14,8 +14,8 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _viewModel = Provider.of<RickyMorty>(context, listen: false);
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      _viewModel.getRickCharacters();
+    WidgetsBinding.instance.addPostFrameCallback((_)  {
+         _viewModel.getRickCharacters();
     });
   }
   @override
@@ -30,27 +30,16 @@ class _HomeState extends State<Home> {
       ),
       body: Consumer<RickyMorty>(
         builder: (context,viewModel, child){
-          if(_viewModel.getStatus() == Status.LOADING){
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          else return ListView.builder(itemBuilder: (context, index){
+           return  ListView.builder(itemBuilder: (context, index){
             return Padding(
               padding: const EdgeInsets.only(left: 25,right: 25,top: 10),
-              child: Container(
+              child:  Container(
                 height:  25,
                   width: MediaQuery.of(context).size.width,
-                  child: Text(_viewModel.getCharacter().results[index].name)),
+                  child: Text( _viewModel.getCharacter().results[index].name)
+              ),
             );
           });
-//          if (_viewModel.getStatus() == Status.SUCCESSFUL){
-//            return Center(
-//              child: Text(
-//                "SUCCESSFUL"
-//              ),
-//            );
-//          }
         },
       )
     );

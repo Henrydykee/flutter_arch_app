@@ -14,9 +14,11 @@ class RickyMorty with ChangeNotifier{
   var _api = API();
 
   Rick getCharacter() => _rick;
+
   Status getStatus() {
     return _status;
   }
+
  void getRickCharacters(){
    _status = Status.LOADING;
    notifyListeners();
@@ -24,6 +26,7 @@ class RickyMorty with ChangeNotifier{
      _api.getCharacters().then((response){
        if(response.statusCode == 200 && response.statusCode  <300){
          _rick = Rick.fromJson(json.decode(response.body));
+
          _status = Status.SUCCESSFUL;
          print(response.body);
 

@@ -34,13 +34,15 @@ class Items {
         image: json['image'],
       );
 
-  Map<String, dynamic> toJson(Items instance) => <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-    'status': instance.status,
-    'species': instance.species,
-    'gender': instance.gender,
-    'image': instance.image,
-
-  };
+//  Map<String, dynamic> toJson(Items instance) => <String, dynamic>{
+//    'id': instance.id,
+//    'name': instance.name,
+//    'status': instance.status,
+//    'species': instance.species,
+//    'gender': instance.gender,
+//    'image': instance.image,
+//
+//  };
 }
+
+
